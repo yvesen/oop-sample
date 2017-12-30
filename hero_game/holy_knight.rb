@@ -20,6 +20,8 @@ class HolyKnight < Hero
     puts "#{enemy.name} 剩下 #{enemy.hp} 點 HP"
     puts ""
 
-    enemy.die?
+    if enemy.hp < 1                                 # 生命值小於 1，代表死亡(戰敗)
+      enemy.die                                     # 敵人死亡
+    end
   end
 end

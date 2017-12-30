@@ -194,5 +194,9 @@ class HolyKnight < Hero
   end
 end
 
-# 建立一個有不同職業 （包括英雄、神聖武士與魔法師）的團隊
-hero = Hero.new("Robinhood", 100000, 20)
+
+puts "Hero 的 MAX HP 是： #{Hero::MAX_HP}"
+puts "Hero 的 MAX AP 是： #{Hero::MAX_AP}"
+
+# 測試是否限制了英雄的 HP 和 AP
+hero = Hero.new("Robinhood", 100000, 2000)          # hp 和 ap 沒有超過 MAX_HP 和 MAX_AP 就是限制了

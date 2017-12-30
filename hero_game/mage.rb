@@ -10,17 +10,11 @@ class Mage < Hero
   # Mage class 需要增加一個 attribute: mp
   # 所以要設定一個屬於魔法師 initialize
 
-  MAX_MP = 10
-
   def initialize(name, hp , ap, mp)
     super(name, hp, ap)                               # 用繼承的語法 super 來設定屬於 Hero 的 attributes，super 會呼叫 Hero 的同名方法 initialize
 
     # 新增一個 attribute: mp (魔法力)
-    if MAX_MP < mp
-      @mp = MAX_MP
-    else
-      @mp = mp
-    end
+    @mp = mp
   end
 
   # Mage class 也需要增加一個 method: fireball
@@ -37,7 +31,9 @@ class Mage < Hero
       puts "#{enemy.name} 剩下 #{enemy.hp} 點 HP"
       puts ""
 
-      enemy.die?
+      if enemy.hp < 1
+        enemy.die
+      end
     else
       # 如果 mp 不夠 3 點，就只能用普通的攻擊，super 會呼叫 Hero 的同名方法 attack
       super(enemy)

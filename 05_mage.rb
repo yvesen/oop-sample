@@ -2,7 +2,7 @@
 
     attr_accessor :hp, :name                    # 設定物件外部可以直接使用和修改 name 和 hp 的 attributes
 
-    def initialize(name,ap,hp)
+    def initialize(name, hp, ap)
       @name = name                              # 設定一個名為 name（名稱）的 attribute
       @hp = hp                                  # 設定一個名為 hp（生命值）的 attribute
       @ap = ap                                  # 設定一個名為 ap（攻擊值）的 attribute
@@ -44,7 +44,7 @@
 
     attr_accessor :hp, :name                          # 讓外部的 method 也可以抓到這兩個 variables
 
-    def initialize(name,ap,hp)
+    def initialize(name, hp, ap)
       @name = name
       @hp = hp
       @ap = ap
@@ -143,6 +143,5 @@
       break
     end
 
-    mage.stats                                      # 印出魔法師的屬性
     monster.attack(mage)                            # 怪獸攻擊
   end

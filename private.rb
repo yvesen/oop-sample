@@ -1,25 +1,11 @@
 class Monster
 
-  MAX_HP = 150
-  MAX_AP = 50
-
   attr_accessor :hp, :name                    # 設定物件外部可以直接使用和修改 name 和 hp 的 attributes
 
   def initialize(name, hp, ap)
     @name = name                              # 設定一個名為 name（名稱）的 attribute
-
-    if MAX_HP < hp
-      @hp = MAX_HP
-    else
-      @hp = hp
-    end
-
-    if MAX_AP < ap
-      @ap = MAX_AP
-    else
-      @ap = ap
-    end                                       # 設定一個名為 hp（生命值）的 attribute
-
+    @hp = hp                                  # 設定一個名為 hp（生命值）的 attribute
+    @ap = ap                                  # 設定一個名為 ap（攻擊值）的 attribute
     @alive = true                             # 怪獸剛被創造，所以預設為 true，表示怪獸創造時一定是活著的
 
     # 印出被創造的怪獸的 attributes
@@ -43,7 +29,7 @@ class Monster
     puts "#{enemy.name} 剩下 #{enemy.hp} 點 HP"
     puts ""
 
-    enemy.die?
+    enemy.die?                                      # 透過 die？ 去檢查敵人的 hp，而不是在自己的 attack 裡使用 enemy.die
   end
 
   def die?
@@ -51,8 +37,9 @@ class Monster
       die
     end
   end
-
-  private def die                                           # 代表死亡(戰敗)
+  
+  private                                           # 宣告 die 為私有方法
+  def die                                           # 代表死亡(戰敗)
     @alive = false
     puts "#{@name} 被打倒了"
   end
@@ -60,28 +47,14 @@ end
 
 class Hero
 
-  MAX_HP = 200
-  MAX_AP = 80
-
   attr_accessor :hp, :name
 
   @@heroes = []                                   # 用來儲存所有 heroes 的 array                          # 讓外部的 method 也可以抓到這兩個 variables
 
   def initialize(name, hp, ap)
     @name = name
-    
-    if MAX_HP < hp
-      @hp = MAX_HP
-    else
-      @hp = hp
-    end
-
-    if MAX_AP < ap
-      @ap = MAX_AP
-    else
-      @ap = ap
-    end                                       # 設定一個名為 hp（生命值）的 attribute
-
+    @hp = hp
+    @ap = ap
     @alive = true                                   # 英雄剛被創造，所以預設為 true，表示英雄被創造時一定是活著的
 
     # 印出被創造的英雄的 attributes
@@ -107,16 +80,17 @@ class Hero
     puts "#{enemy.name} 剩下 #{enemy.hp} 點 HP"
     puts ""
 
-    enemy.die?
+    enemy.die?                                      # 透過 die？ 去檢查敵人的 hp，而不是在自己的 attack 裡使用 enemy.die
   end
 
-  def die?
+  def die?                                          
     if hp < 1
       die
     end
   end
 
-  private def die                                           # 代表死亡(戰敗)
+  private                                           # 宣告 die 為私有方法
+  def die                                           # 代表死亡(戰敗)
     @alive = false
     puts "#{@name} 被打倒了"
   end
@@ -140,17 +114,11 @@ class Mage < Hero
   # Mage class 需要增加一個 attribute: mp
   # 所以要設定一個屬於魔法師 initialize
 
-  MAX_MP = 10
-
   def initialize(name, hp , ap, mp)
     super(name, hp, ap)                               # 用繼承的語法 super 來設定屬於 Hero 的 attributes，super 會呼叫 Hero 的同名方法 initialize
 
     # 新增一個 attribute: mp (魔法力)
-    if MAX_MP < mp
-      @mp = MAX_MP
-    else
-      @mp = mp
-    end
+    @mp = mp
   end
 
   # Mage class 也需要增加一個 method: fireball
@@ -204,6 +172,8 @@ class HolyKnight < Hero
   end
 end
 
-# 建立一個有不同職業 （包括英雄、神聖武士與魔法師）的團隊
+# 確認是否可直接呼叫讓 hero 被打倒
 hero = Hero.new("Robinhood", 100, 20)
-hero.die
+
+hero.die?        # 使用 die? 確認 hero 是否死亡，不會發生錯誤
+hero.die         # 會發生錯誤，表示宣告 die 為私有方法成功了

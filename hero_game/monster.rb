@@ -1,25 +1,11 @@
 class Monster
 
-  MAX_HP = 150
-  MAX_AP = 50
-
   attr_accessor :hp, :name                    # 設定物件外部可以直接使用和修改 name 和 hp 的 attributes
 
   def initialize(name, hp, ap)
     @name = name                              # 設定一個名為 name（名稱）的 attribute
-
-    if MAX_HP < hp
-      @hp = MAX_HP
-    else
-      @hp = hp
-    end
-
-    if MAX_AP < ap
-      @ap = MAX_AP
-    else
-      @ap = ap
-    end                                       # 設定一個名為 hp（生命值）的 attribute
-
+    @hp = hp                                  # 設定一個名為 hp（生命值）的 attribute
+    @ap = ap                                  # 設定一個名為 ap（攻擊值）的 attribute
     @alive = true                             # 怪獸剛被創造，所以預設為 true，表示怪獸創造時一定是活著的
 
     # 印出被創造的怪獸的 attributes
@@ -43,16 +29,12 @@ class Monster
     puts "#{enemy.name} 剩下 #{enemy.hp} 點 HP"
     puts ""
 
-    enemy.die?
-  end
-
-  def die?
-    if hp < 1
-      die
+    if enemy.hp < 1                                 # 生命值小於 1，代表死亡(戰敗)
+      enemy.die                                     # 敵人死亡
     end
   end
 
-  private def die                                           # 代表死亡(戰敗)
+  def die                                           # 代表死亡(戰敗)
     @alive = false
     puts "#{@name} 被打倒了"
   end
